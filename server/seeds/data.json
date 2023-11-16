@@ -1,8 +1,8 @@
 {
     "user": {
         "firstName": "Test",
-        "lastName": "user",
-        "email": "something",
-        "password": "else"
+        "lastName": "User",
+        "email": "test@gmail.com",
+        "password": "secret"
     }
 }
