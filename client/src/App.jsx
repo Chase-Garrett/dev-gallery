@@ -1,16 +1,20 @@
-import { Outlet } from "react-router-dom";
-import { setContext } from "@apollo/client/link/context";
+import { Outlet } from 'react-router-dom';
+import { setContext } from '@apollo/client/link/context';
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
-} from "@apollo/client/core";
-import { StoreProvider } from "./utils/store-context";
-import "./App.scss";
-import Auth from "./utils/auth";
+} from '@apollo/client';
 
-const httpLink = createHttpLink({ uri: "/graphql" });
+import { StoreProvider } from './utils/store-context';
+import Nav from './components/Nav';
+import Login from './components/Login';
+import Auth from './utils/auth'
+
+import './app.scss';
+
+const httpLink = createHttpLink({ uri: '/graphql' });
 
 const authLink = setContext((_, { headers }) => {
   const token = Auth.getToken();
@@ -18,7 +22,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+      authorization: token ? `Bearer ${token}` : '',
     },
   };
 });
@@ -38,7 +42,7 @@ function App() {
         </div>
       </StoreProvider>
     </ApolloProvider>
-  );
+  )
 }
 
-export default App;
+export default App
