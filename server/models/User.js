@@ -1,5 +1,6 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const skillSchema = require("./Skill");
 
 const { Schema } = mongoose;
 
@@ -7,27 +8,28 @@ const userSchema = new Schema({
   firstName: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   lastName: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
     required: true,
-    minlength: 5
+    minlength: 5,
   },
+  savedSkills: skillSchema,
 });
 
-userSchema.pre('save', async function (next) {
-  if (this.isNew || this.isModified('password')) {
+userSchema.pre("save", async function (next) {
+  if (this.isNew || this.isModified("password")) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
@@ -39,4 +41,4 @@ userSchema.methods.verifyPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);
