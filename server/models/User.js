@@ -25,7 +25,7 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  savedSkills: [skillSchema],
+  savedSkills: skillSchema,
 });
 
 userSchema.pre("save", async function (next) {
