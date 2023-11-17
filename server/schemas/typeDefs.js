@@ -6,6 +6,11 @@ const typeDefs = `
     email: String
   }
 
+  type Skill {
+    _id: ID
+    skillName: String
+  }
+
   type Auth {
     token: ID
   }
@@ -17,6 +22,8 @@ const typeDefs = `
   type Mutation {
     signin(firstName: String!, lastName: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
+    addSkills(skillName: String!): User
+    removeSkill(skillName: String!): User
   }
 `;
 
