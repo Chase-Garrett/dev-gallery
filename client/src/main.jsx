@@ -1,5 +1,6 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Login from "./components/Login/index.jsx";
 import SignUp from "./pages/SignUp/SignUp.jsx";
 import App from "./App.jsx";
 import Home from "./pages/Home";
@@ -22,12 +23,15 @@ const router = createBrowserRouter([
         path: "/profile",
         element: <Profile />,
       },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <SignUp />,
+      },
     ],
-  },
-  {
-    path: "/signup",
-    element: <SignUp />,
-    error: <NotFound />,
   },
 ]);
 

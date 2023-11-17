@@ -10,6 +10,10 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { SIGNIN_MUTATION } from "../../utils/mutations";
+import Auth from "../../utils/auth";
 
 function Copyright(props) {
   return (
@@ -34,13 +38,32 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const [userFormData, setUserFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
+  const [signin, { data, error }] = useMutation(SIGNIN_MUTATION);
+
+  const handleInputChange = (evt) => {
+    const { name, value } = evt.target;
+    setUserFormData({ ...userFormData, [name]: value });
+  };
+
+  const handleSubmit = async (evt) => {
+    evt.preventDefault();
+
+    try {
+      const { data } = await signin({
+        variables: { ...userFormData },
+      });
+
+      Auth.login(data.signin.token);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -77,6 +100,8 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  onChange={handleInputChange}
+                  value={userFormData.firstName}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -87,6 +112,8 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  onChange={handleInputChange}
+                  value={userFormData.lastName}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -97,6 +124,8 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange={handleInputChange}
+                  value={userFormData.email}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -108,6 +137,8 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onChange={handleInputChange}
+                  value={userFormData.password}
                 />
               </Grid>
             </Grid>
@@ -121,7 +152,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="center">
               <Grid item>
-                <Link href="/" variant="body2">
+                <Link href="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
