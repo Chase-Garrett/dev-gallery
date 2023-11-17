@@ -1,5 +1,5 @@
-const { User } = require('../models');
-const { signToken, AuthenticationError } = require('../utils/auth');
+const { User } = require("../models");
+const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
   Query: {
@@ -9,14 +9,14 @@ const resolvers = {
       }
 
       return await User.findById(context.user._id);
-    }
+    },
   },
   Mutation: {
     signin: async (parent, args) => {
       const user = await User.create(args);
       const token = signToken(user);
 
-      return { token };
+      return { token, user };
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
@@ -34,8 +34,8 @@ const resolvers = {
       const token = signToken(user);
 
       return { token };
-    }
-  }
+    },
+  },
 };
 
 module.exports = resolvers;
