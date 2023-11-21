@@ -16,6 +16,16 @@ const typeDefs = `
     skillName: String
   }
 
+  type Project {
+    _id: ID
+    projectName: String
+    projectDescription: String
+    projectUrl: String
+    projectRepo: String
+    projectScreenshot: String
+    projectSkills: [Skill]
+  }
+
   type Auth {
     token: ID
   }
