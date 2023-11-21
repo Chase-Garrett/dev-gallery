@@ -5,11 +5,15 @@ import { USER_PROFILE } from "../../utils/actions";
 import { QUERY_USER } from "../../utils/queries";
 import { useStoreContext } from "../../utils/store-context";
 
-import * as React from 'react';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import * as React from "react";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
+
+import Nav from "../../components/Nav";
 
 import "./style.scss";
 import { Container } from "@mui/material";
@@ -25,6 +29,9 @@ export default function ProfileForm() {
   }, [data]);
 
   return (
+    <>
+    <Nav />
+   
     <Container className="profile-container">
       <Typography variant="h4" gutterBottom>
         Profile Infomation
@@ -40,63 +47,45 @@ export default function ProfileForm() {
             autoComplete="given-name"
             variant="standard"
           />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            id="address2"
-            name="address2"
-            label="Address line 2"
-            fullWidth
-            autoComplete="shipping address-line2"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="city"
-            name="city"
-            label="City"
+            id="lastName"
+            name="lastName"
+            label="Last name"
             fullWidth
-            autoComplete="shipping address-level2"
+            autoComplete="family-name"
             variant="standard"
           />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            id="state"
-            name="state"
-            label="State/Province/Region"
-            fullWidth
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="zip"
-            name="zip"
-            label="Zip / Postal code"
+            id="email"
+            name="email"
+            label="Email"
             fullWidth
-            autoComplete="shipping postal-code"
+            autoComplete="email"
             variant="standard"
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid>
           <TextField
-            required
-            id="country"
-            name="country"
-            label="Country"
-            fullWidth
-            autoComplete="shipping country"
-            variant="standard"
+            className="skills-box"
+            id="outlined-multiline-static"
+            label="Skills"
+            multiline
+            rows={4}
+            defaultValue="Add your skills"
           />
+          <Fab size="small" color="primary" aria-label="add">
+            <AddIcon />
+          </Fab>
         </Grid>
         <Grid item xs={12}>
-        <Button variant="contained" className="Button">Save</Button>
+          <Button variant="contained" className="Button">
+            Save
+          </Button>
         </Grid>
       </Grid>
     </Container>
+    </>
   );
 }
