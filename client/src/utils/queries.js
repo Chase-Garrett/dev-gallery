@@ -37,8 +37,11 @@ export const QUERY_ALL_USERS = gql`
       lastName
       email
       bio
-
       isDev
+      skills {
+        _id
+        skillName
+      }
     }
   }
 `;
