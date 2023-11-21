@@ -25,6 +25,10 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
+  isDeveloper: {
+    type: Boolean,
+    required: true,
+  },
   savedSkills: skillSchema,
 });
 
