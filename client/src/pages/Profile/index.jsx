@@ -1,47 +1,122 @@
-import { useEffect } from 'react';
-import { useQuery } from '@apollo/client';
+import { useEffect } from "react";
+import { useQuery } from "@apollo/client";
 
-import { USER_PROFILE } from '../../utils/actions';
-import { QUERY_USER } from '../../utils/queries';
-import { useStoreContext } from '../../utils/store-context';
+import { USER_PROFILE } from "../../utils/actions";
+import { QUERY_USER } from "../../utils/queries";
+import { useStoreContext } from "../../utils/store-context";
+import * as React from 'react';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
-import './style.scss';
+import "./style.scss";
 
-export default function Profile() {
-  const [user, dispatch] = useStoreContext('user');
+export default function ProfileForm() {
+  const [user, dispatch] = useStoreContext("user");
   const { data, loading } = useQuery(QUERY_USER);
 
   useEffect(() => {
     if (data && data.user) {
-      dispatch({ type: USER_PROFILE, payload: data.user })
+      dispatch({ type: USER_PROFILE, payload: data.user });
     }
   }, [data]);
 
   return (
-    <div id="profile-page">
-      <h1>Profile</h1>
-
-      {loading && (
-        <h2 className="loading-data">
-          Loading user data...
-        </h2>
-      )}
-
-      {user?.profile && (
-        <ul className="display-user">
-          <li>
-            <span className="display-user__label">User ID:</span> <span>{user.profile.id}</span>
-          </li>
-          <li>
-            <span className="display-user__label">Fullname:</span> <span>{user.profile.firstName} {user.profile.lastName}</span>
-          </li>
-          <li>
-            <span className="display-user__label">Email:</span> <span>{user.profile.email}</span>
-          </li>
-        </ul>
-      )
-      }
-    </div>
+    <React.Fragment>
+      <Typography variant="h6" gutterBottom>
+        Shipping address
+      </Typography>
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="firstName"
+            name="firstName"
+            label="First name"
+            fullWidth
+            autoComplete="given-name"
+            variant="standard"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="lastName"
+            name="lastName"
+            label="Last name"
+            fullWidth
+            autoComplete="family-name"
+            variant="standard"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
+            id="address1"
+            name="address1"
+            label="Address line 1"
+            fullWidth
+            autoComplete="shipping address-line1"
+            variant="standard"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            id="address2"
+            name="address2"
+            label="Address line 2"
+            fullWidth
+            autoComplete="shipping address-line2"
+            variant="standard"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="city"
+            name="city"
+            label="City"
+            fullWidth
+            autoComplete="shipping address-level2"
+            variant="standard"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            id="state"
+            name="state"
+            label="State/Province/Region"
+            fullWidth
+            variant="standard"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="zip"
+            name="zip"
+            label="Zip / Postal code"
+            fullWidth
+            autoComplete="shipping postal-code"
+            variant="standard"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="country"
+            name="country"
+            label="Country"
+            fullWidth
+            autoComplete="shipping country"
+            variant="standard"
+          />
+        </Grid>
+        <Grid item xs={12}>
+        <Button variant="contained" className="">Save</Button>
+        </Grid>
+      </Grid>
+    </React.Fragment>
   );
-};
-
+}
