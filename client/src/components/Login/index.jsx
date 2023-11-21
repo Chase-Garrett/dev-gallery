@@ -4,11 +4,13 @@ import { useMutation } from "@apollo/client";
 import { LOGIN_MUTATION } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 
+
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import "./style.scss";
+import Nav from "../Nav";
 
-export default function Nav() {
+export default function Login() {
   const [login, { loading }] = useMutation(LOGIN_MUTATION);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,6 +30,8 @@ export default function Nav() {
   };
 
   return (
+    <>
+    <Nav />
     <form id="login-form" onSubmit={logingHandler}>
       <div>
         <label htmlFor="login-form-email">Email</label>
@@ -58,5 +62,6 @@ export default function Nav() {
         </Grid>
       </Grid>
     </form>
+    </>
   );
 }

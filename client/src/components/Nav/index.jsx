@@ -22,11 +22,19 @@ export default function Nav() {
         <nav>
           {Auth.loggedIn() && (
             <>
-              <Link to="/">Home</Link>
-              <Link to="/profile">Profile</Link>
+              <Link key={1} to="/" className={location.pathname === '/' ? 'active' : ''}>Home</Link>
+              <Link key={2} to="/profile" className={location.pathname === '/profile' ? 'active' : ''}>Profile</Link>
               <div className="logout-link" onClick={() => Auth.logout()}>Logout</div>
             </>
           )}
+          {
+            !Auth.loggedIn() && (
+              <>
+              <Link to="/login">Login</Link>
+              <Link to="/signup">Sign Up</Link>
+              </>
+            )
+          }
         </nav>
 
         <img
