@@ -4,6 +4,11 @@ const typeDefs = `
     firstName: String
     lastName: String
     email: String
+    bio: String
+    profilePic: String
+    isDev: Boolean
+    skills: [Skill]
+    projects: [Project]
   }
 
   type Skill {
