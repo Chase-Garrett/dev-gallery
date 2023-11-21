@@ -15,6 +15,8 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { SIGNUP_MUTATION } from "../../utils/mutations";
 import Auth from "../../utils/auth";
+import Nav from "../../components/Nav";
+
 import { FormControlLabel, FormGroup } from "@mui/material";
 
 function Copyright(props) {
@@ -72,8 +74,9 @@ export default function SignUp() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main">
         <CssBaseline />
+        <Nav />
         <Box
           sx={{
             marginTop: 8,

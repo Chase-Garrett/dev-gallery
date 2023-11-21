@@ -8,8 +8,6 @@ import {
 } from "@apollo/client";
 
 import { StoreProvider } from "./utils/store-context";
-import Nav from "./components/Nav";
-import Login from "./components/Login";
 import Auth from "./utils/auth";
 
 import "./app.scss";
@@ -37,7 +35,7 @@ function App() {
     <ApolloProvider client={client}>
       <StoreProvider>
         <div id="app-shell">
-          <Nav />
+          
           <Outlet />
         </div>
       </StoreProvider>
