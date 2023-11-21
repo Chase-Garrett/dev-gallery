@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client";
 import { USER_PROFILE } from "../../utils/actions";
 import { QUERY_USER } from "../../utils/queries";
 import { useStoreContext } from "../../utils/store-context";
+
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -11,6 +12,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 import "./style.scss";
+import { Container } from "@mui/material";
 
 export default function ProfileForm() {
   const [user, dispatch] = useStoreContext("user");
@@ -23,9 +25,9 @@ export default function ProfileForm() {
   }, [data]);
 
   return (
-    <React.Fragment>
-      <Typography variant="h6" gutterBottom>
-        Shipping address
+    <Container className="profile-container">
+      <Typography variant="h4" gutterBottom>
+        Profile Infomation
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
@@ -40,28 +42,6 @@ export default function ProfileForm() {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="lastName"
-            name="lastName"
-            label="Last name"
-            fullWidth
-            autoComplete="family-name"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="address1"
-            name="address1"
-            label="Address line 1"
-            fullWidth
-            autoComplete="shipping address-line1"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12}>
           <TextField
             id="address2"
             name="address2"
@@ -114,9 +94,9 @@ export default function ProfileForm() {
           />
         </Grid>
         <Grid item xs={12}>
-        <Button variant="contained" className="">Save</Button>
+        <Button variant="contained" className="Button">Save</Button>
         </Grid>
       </Grid>
-    </React.Fragment>
+    </Container>
   );
 }
