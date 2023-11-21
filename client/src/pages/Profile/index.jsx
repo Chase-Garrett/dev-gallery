@@ -5,6 +5,7 @@ import { USER_PROFILE } from '../../utils/actions';
 import { QUERY_USER } from '../../utils/queries';
 import { useStoreContext } from '../../utils/store-context';
 
+
 import './style.scss';
 
 export default function Profile() {
