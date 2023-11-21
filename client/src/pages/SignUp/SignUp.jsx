@@ -1,4 +1,5 @@
 import * as React from "react";
+import Checkbox from "@mui/material/Checkbox";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,10 +13,11 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { SIGNIN_MUTATION } from "../../utils/mutations";
+import { SIGNUP_MUTATION } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import Nav from "../../components/Nav";
 
+import { FormControlLabel, FormGroup } from "@mui/material";
 
 function Copyright(props) {
   return (
@@ -45,9 +47,10 @@ export default function SignUp() {
     lastName: "",
     email: "",
     password: "",
+    isDev: true,
   });
 
-  const [signin, { data, error }] = useMutation(SIGNIN_MUTATION);
+  const [signup, { data, error }] = useMutation(SIGNUP_MUTATION);
 
   const handleInputChange = (evt) => {
     const { name, value } = evt.target;
@@ -58,13 +61,14 @@ export default function SignUp() {
     evt.preventDefault();
 
     try {
-      const { data } = await signin({
+      const { data } = await signup({
         variables: { ...userFormData },
       });
 
-      Auth.login(data.signin.token);
+      Auth.login(data.signup.token);
     } catch (err) {
       console.error(err);
+      console.log(userFormData);
     }
   };
 
@@ -143,6 +147,19 @@ export default function SignUp() {
                   onChange={handleInputChange}
                   value={userFormData.password}
                 />
+              </Grid>
+              <Grid>
+                <Grid item>
+                  <FormGroup>
+                    <FormControlLabel
+                      control={<Checkbox defaultChecked />}
+                      label="Is this for a Developer Account?"
+                      name="isDev"
+                      onChange={handleInputChange}
+                      value={userFormData.isDev}
+                    />
+                  </FormGroup>
+                </Grid>
               </Grid>
             </Grid>
             <Button

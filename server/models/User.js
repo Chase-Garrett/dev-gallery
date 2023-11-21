@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const skillSchema = require("./Skill");
+const projectSchema = require("./Project");
 
 const { Schema } = mongoose;
 
@@ -25,7 +26,12 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  savedSkills: skillSchema,
+  isDev: {
+    type: Boolean,
+    required: true,
+  },
+  savedSkills: [skillSchema],
+  savedProjects: [projectSchema],
 });
 
 userSchema.pre("save", async function (next) {
