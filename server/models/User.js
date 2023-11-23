@@ -1,11 +1,10 @@
-const mongoose = require("mongoose");
+const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
 const skillSchema = require("./Skill");
 const projectSchema = require("./Project");
 
-const { Schema } = mongoose;
-
-const userSchema = new Schema({
+const userSchema = new Schema(
+  {
   firstName: {
     type: String,
     required: true,
@@ -32,7 +31,8 @@ const userSchema = new Schema({
   },
   savedSkills: [skillSchema],
   savedProjects: [projectSchema],
-});
+}
+);
 
 userSchema.pre("save", async function (next) {
   if (this.isNew || this.isModified("password")) {
@@ -47,4 +47,6 @@ userSchema.methods.verifyPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
-module.exports = mongoose.model("User", userSchema);
+const User = model("User", userSchema);
+
+module.exports = User;

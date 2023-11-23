@@ -64,7 +64,6 @@ export default function SignUp() {
       const { data } = await signup({
         variables: { ...userFormData },
       });
-
       Auth.login(data.signup.token);
     } catch (err) {
       console.error(err);
