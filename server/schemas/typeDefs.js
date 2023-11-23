@@ -7,8 +7,8 @@ const typeDefs = `
     bio: String
     profilePic: String
     isDev: Boolean
-    skills: [Skill]
-    projects: [Project]
+    savedSkills: [Skill]
+    savedProjects: [Project]
   }
 
   type Skill {
