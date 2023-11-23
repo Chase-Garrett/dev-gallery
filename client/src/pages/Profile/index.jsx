@@ -14,6 +14,7 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 
 import Nav from "../../components/Nav";
+import FormDialog from "./project";
 
 import "./style.scss";
 import { Container } from "@mui/material";
@@ -75,9 +76,9 @@ export default function ProfileForm() {
             rows={4}
             defaultValue="Add your skills"
           />
-          <Fab size="small" color="primary" aria-label="add">
-            <AddIcon />
-          </Fab>
+          <Grid item xs={12}>
+      < FormDialog/>
+      </Grid>
         </Grid>
         <Grid item xs={12}>
           <Button variant="contained" className="Button">
