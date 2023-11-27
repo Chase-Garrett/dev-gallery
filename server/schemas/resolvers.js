@@ -257,6 +257,15 @@ const resolvers = {
 
       return "Profile deleted";
     },
+    createThread: async (parent, { participants }, context) => {
+      if (!context.user) {
+        throw AuthenticationError;
+      }
+
+      const thread = await Thread.create({ participants, messages: [] });
+
+      return thread;
+    },
   },
 };
 
