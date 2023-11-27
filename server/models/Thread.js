@@ -3,7 +3,7 @@ const userSchema = require("./User");
 const messageSchema = require("./Message");
 
 const threadSchema = new Schema({
-  users: [userSchema],
+  participants: [userSchema],
   messages: [messageSchema],
 });
 
