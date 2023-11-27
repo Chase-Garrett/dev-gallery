@@ -266,6 +266,24 @@ const resolvers = {
 
       return thread;
     },
+    addMessage: async (parent, { threadId, content }, context) => {
+      if (!context.user) {
+        throw AuthenticationError;
+      }
+
+      const message = await Message.create({
+        content,
+        sender: context.user._id,
+      });
+
+      const thread = await Thread.findByIdAndUpdate(
+        threadId,
+        { $push: { messages: message._id } },
+        { new: true }
+      );
+
+      return thread;
+    },
   },
 };
 
