@@ -26,6 +26,19 @@ const typeDefs = `
     projectSkills: [Skill]
   }
 
+  type Message {
+    _id: ID
+    content: String
+    sender: User
+    createdAt: String
+  }
+
+  type Thread {
+    _id: ID
+    participants: [User]
+    messages: [Message]
+  }
+
   type Auth {
     token: ID
   }
