@@ -236,3 +236,26 @@ export const ADD_MESSAGE_MUTATION = gql`
     }
   }
 `;
+
+export const CREATE_THREAD_MUTATION = gql`
+  mutation createThread($participants: [ID]!) {
+    createThread(participants: $participants) {
+      _id
+      participants {
+        _id
+        firstName
+        lastName
+      }
+      messages {
+        _id
+        content
+        sender {
+          _id
+          firstName
+          lastName
+        }
+        createdAt
+      }
+    }
+  }
+`;
