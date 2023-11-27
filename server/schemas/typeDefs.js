@@ -64,6 +64,8 @@ const typeDefs = `
     removeProfilePic: User
     addProfile(firstName: String!, lastName: String!, email: String!, bio: String!, isDev: Boolean!): User
     removeProfile: User
+    createThread(participants: [ID]!): Thread
+    addMessage(threadId: ID!, content: String!): Thread
   }
 `;
 
