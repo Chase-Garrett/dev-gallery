@@ -262,7 +262,7 @@ const resolvers = {
         throw AuthenticationError;
       }
 
-      const thread = await Thread.create({ participants, messages: [] });
+      const thread = await Thread.create({ participants });
 
       return thread;
     },
