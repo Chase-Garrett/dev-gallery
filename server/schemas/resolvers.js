@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Thread, Message } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
@@ -12,6 +12,9 @@ const resolvers = {
     },
     users: async () => {
       return await User.find();
+    },
+    thread: async (parent, { threadId }) => {
+      return await Thread.findById(threadId).populate("messages");
     },
   },
   Mutation: {
