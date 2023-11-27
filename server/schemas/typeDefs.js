@@ -46,6 +46,7 @@ const typeDefs = `
   type Query {
     user: User
     users: [User]
+    thread(participants: [ID]): Thread
   }
 
   type Mutation {
