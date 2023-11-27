@@ -221,3 +221,18 @@ export const REMOVE_PROJECT_SKILL_MUTATION = gql`
     }
   }
 `;
+
+export const ADD_MESSAGE_MUTATION = gql`
+  mutation addMessage($threadId: ID!, $content: String!) {
+    addMessage(threadId: $threadId, content: $content) {
+      _id
+      content
+      sender {
+        _id
+        firstName
+        lastName
+      }
+      createdAt
+    }
+  }
+`;
