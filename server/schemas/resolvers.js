@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Thread, Message } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
@@ -12,6 +12,9 @@ const resolvers = {
     },
     users: async () => {
       return await User.find();
+    },
+    thread: async (parent, { threadId }) => {
+      return await Thread.findById(threadId).populate("messages");
     },
   },
   Mutation: {
@@ -253,6 +256,33 @@ const resolvers = {
       await User.findByIdAndDelete(context.user._id);
 
       return "Profile deleted";
+    },
+    createThread: async (parent, { participants }, context) => {
+      if (!context.user) {
+        throw AuthenticationError;
+      }
+
+      const thread = await Thread.create({ participants });
+
+      return thread;
+    },
+    addMessage: async (parent, { threadId, content }, context) => {
+      if (!context.user) {
+        throw AuthenticationError;
+      }
+
+      const message = await Message.create({
+        content,
+        sender: context.user._id,
+      });
+
+      const thread = await Thread.findByIdAndUpdate(
+        threadId,
+        { $push: { messages: message._id } },
+        { new: true }
+      );
+
+      return thread;
     },
   },
 };

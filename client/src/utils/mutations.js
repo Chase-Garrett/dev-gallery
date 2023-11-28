@@ -9,8 +9,20 @@ export const LOGIN_MUTATION = gql`
 `;
 
 export const SIGNUP_MUTATION = gql`
-  mutation signup($firstName: String!, $lastName: String!, $email: String!, $password: String!, $isDev: Boolean!) {
-    signup(firstName: $firstName, lastName: $lastName, email: $email, password: $password, isDev: $isDev) {
+  mutation signup(
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $password: String!
+    $isDev: Boolean!
+  ) {
+    signup(
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      password: $password
+      isDev: $isDev
+    ) {
       token
     }
   }
@@ -174,6 +186,76 @@ export const REMOVE_PROJECT_MUTATION = gql`
       description
       link
       isDev
+    }
+  }
+`;
+
+export const ADD_PROJECT_SKILL_MUTATION = gql`
+  mutation addProjectSkill($id: ID!, $skill: String!) {
+    addProjectSkill(id: $id, skill: $skill) {
+      _id
+      title
+      description
+      link
+      isDev
+      skills {
+        _id
+        skillName
+      }
+    }
+  }
+`;
+
+export const REMOVE_PROJECT_SKILL_MUTATION = gql`
+  mutation removeProjectSkill($id: ID!, $skill: String!) {
+    removeProjectSkill(id: $id, skill: $skill) {
+      _id
+      title
+      description
+      link
+      isDev
+      skills {
+        _id
+        skillName
+      }
+    }
+  }
+`;
+
+export const ADD_MESSAGE_MUTATION = gql`
+  mutation addMessage($threadId: ID!, $content: String!) {
+    addMessage(threadId: $threadId, content: $content) {
+      _id
+      content
+      sender {
+        _id
+        firstName
+        lastName
+      }
+      createdAt
+    }
+  }
+`;
+
+export const CREATE_THREAD_MUTATION = gql`
+  mutation createThread($participants: [ID]!) {
+    createThread(participants: $participants) {
+      _id
+      participants {
+        _id
+        firstName
+        lastName
+      }
+      messages {
+        _id
+        content
+        sender {
+          _id
+          firstName
+          lastName
+        }
+        createdAt
+      }
     }
   }
 `;
