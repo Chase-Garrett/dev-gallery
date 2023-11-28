@@ -16,10 +16,14 @@ const resolvers = {
   },
   Mutation: {
     signup: async (parent, args) => {
-      const user = await User.create(args);
-      const token = signToken(user);
+      try {
+        const user = await User.create(args);
+        const token = signToken(user);
+  
+        return { token, user };
 
-      return { token, user };
+      } catch (err){console.log(err)}
+      
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
@@ -91,8 +95,11 @@ const resolvers = {
       if (!user) {
         throw new Error("Could not find user");
       }
+      if (!user.savedProjects || !user.savedProjects.length) {
+        user.savedProjects = []
+      }
 
-      user.projects.push({
+      user.savedProjects.push({
         projectName,
         projectDescription,
         projectUrl,

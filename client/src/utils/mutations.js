@@ -146,22 +146,41 @@ export const REMOVE_PROFILE_MUTATION = gql`
 
 export const ADD_PROJECT_MUTATION = gql`
   mutation addProject(
-    $title: String!
-    $description: String!
-    $link: String!
+    $projectName: String!
+    $projectDescription: String!
+    $projectUrl: String!
+    $projectRepo: String!
     $isDev: Boolean!
   ) {
     addProject(
-      title: $title
-      description: $description
-      link: $link
+      projectName: $projectName
+      projectDescription: $projectDescription
+      projectUrl: $projectUrl
+      projectRepo: $projectRepo
       isDev: $isDev
     ) {
       _id
-      title
-      description
-      link
+      firstName
+      lastName
+      email
+      bio
+      profilePic
       isDev
+      savedSkills {
+        _id
+        skillName
+      }
+      savedProjects {
+        _id
+    projectName
+    projectDescription
+    projectUrl
+    projectRepo
+    projectSkills {
+      _id
+      skillName
+    }
+      }
     }
   }
 `;
