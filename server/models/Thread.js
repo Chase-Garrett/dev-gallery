@@ -1,9 +1,8 @@
-const { Schema } = require("mongoose");
-const userSchema = require("./User");
-const messageSchema = require("./Message");
+const { Schema, SchemaTypes } = require("mongoose");
+const messageSchema = require('./Message');
 
 const threadSchema = new Schema({
-  participants: [userSchema],
+  participants: [{type: Schema.Types.ObjectId, ref: "User"}],
   messages: [messageSchema],
 });
 
