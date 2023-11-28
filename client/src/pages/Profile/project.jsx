@@ -12,6 +12,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { ADD_PROJECT_MUTATION } from '../../utils/mutations';
+import { Container } from '@mui/material';
 
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
@@ -19,8 +20,6 @@ export default function FormDialog() {
   
   const [projectInput, setProjectInput] = useState({ projectName:"", projectDescription:"", projectUrl:"", projectRepo:"", isDev: user.data.isDev});
   const { data: userData, loading } = useQuery(QUERY_USER)
-
-// const [savedProjectIds, setSavedProjectIds] = useState(getSavedProjectIds());
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -32,10 +31,6 @@ export default function FormDialog() {
   };
 
   const [addProject, { error }] = useMutation(ADD_PROJECT_MUTATION);
-
-  // useEffect(() => {
-  //   return () => saveProjectIds(savedProjectIds);
-  // });
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -57,7 +52,12 @@ export default function FormDialog() {
       {!loading && userData?.user?.savedProjects.length === 0 && (<div>No Saved Projects</div>)}
       {!loading && userData && userData?.user?.savedProjects.length && (
         userData.user?.savedProjects.map((project, index) => (
-          <div key={index}>{project.projectName}</div>
+          <Container key={index}>
+            {project.projectName}
+            {project.projectDescription}
+            {project.projectUrl}
+            {project.projectRepo}
+          </Container>
         ))
       )}
       <Dialog open={open} onClose={handleClose}>

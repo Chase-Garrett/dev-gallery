@@ -1,5 +1,6 @@
-import { useEffect } from "react";
-import { useQuery } from "@apollo/client";
+import { useState, useEffect } from "react";
+import  Auth from '../../utils/auth';
+import { useMutation, useQuery } from "@apollo/client";
 
 import { USER_PROFILE } from "../../utils/actions";
 import { QUERY_USER } from "../../utils/queries";
@@ -10,8 +11,6 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/Add";
 
 import Nav from "../../components/Nav";
 import FormDialog from "./project";
