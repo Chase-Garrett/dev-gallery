@@ -25,6 +25,19 @@ const typeDefs = `
     projectSkills: [Skill]
   }
 
+  type Message {
+    _id: ID
+    content: String
+    sender: User
+    createdAt: String
+  }
+
+  type Thread {
+    _id: ID
+    participants: [User]
+    messages: [Message]
+  }
+
   type Auth {
     token: ID
   }
@@ -32,6 +45,7 @@ const typeDefs = `
   type Query {
     user: User
     users: [User]
+    thread(participants: [ID]): Thread
   }
 
   type Mutation {
@@ -49,6 +63,8 @@ const typeDefs = `
     removeProfilePic: User
     addProfile(firstName: String!, lastName: String!, email: String!, bio: String!, isDev: Boolean!): User
     removeProfile: User
+    createThread(participants: [ID]!): Thread
+    addMessage(threadId: ID!, content: String!): Thread
   }
 `;
 

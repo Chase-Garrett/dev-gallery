@@ -44,3 +44,26 @@ export const QUERY_ALL_USERS = gql`
     }
   }
 `;
+
+export const QUERY_THREAD = gql`
+  query thread($participants: [ID]) {
+    thread(participants: $participants) {
+      _id
+      participants {
+        _id
+        firstName
+        lastName
+      }
+      messages {
+        _id
+        content
+        sender {
+          _id
+          firstName
+          lastName
+        }
+        createdAt
+      }
+    }
+  }
+`;
