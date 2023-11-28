@@ -55,7 +55,7 @@ export default function FormDialog() {
       </Button>
       {loading && (<div>Loading User Projects...</div>)}
       {!loading && userData?.user?.savedProjects.length === 0 && (<div>No Saved Projects</div>)}
-      {!loading && userData && userData?.user?.savedProjects.length && (
+      {!loading && userData && !!userData?.user?.savedProjects.length && (
         userData.user?.savedProjects.map((project, index) => (
           <div key={index}>{project.projectName}</div>
         ))

@@ -7,12 +7,14 @@ import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Button from '@mui/material/Button';
 import Auth from '../../utils/auth';
+import { useNavigate } from 'react-router-dom';
 
 
 const drawerWidth = 240;
@@ -69,7 +71,7 @@ export default function Dashboard() {
   const toggleDrawer = () => {
     setOpen(!open);
   };
-
+const navigate = useNavigate()
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -118,9 +120,16 @@ export default function Dashboard() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            <Button onClick={() => Auth.logout()} variant='outlined'>LogOut</Button>
-            <Button href="/signup" variant='outlined'>Sign Up</Button>
+            <Stack spacing = {1}>
+            <Button onClick={() => {
+              if(Auth.loggedIn()) {
+                navigate('/profile')
+              } else {alert("Need to be logged in")}
+            }} variant='contained'>Profile</Button>
+            <Button onClick={() => Auth.logout()} variant='contained'>LogOut</Button>
+            <Button href="/signup" variant='contained'>Sign Up</Button>
             <Divider sx={{ my: 5 }} />
+            </Stack>
           </List>
         </Drawer>
         <Toolbar />

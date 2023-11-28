@@ -34,7 +34,7 @@ return (
       autoComplete="off"
     >
       <TextField id="standard-basic" label="Developers" variant="standard" />
-      <Button variant='outlined' sx={{width: 5}} onClick={handleFormSubmit}>Search</Button>
+      <Button variant='contained' sx={{width: 5}} onClick={handleFormSubmit}>Search</Button>
     </Box>
   </div>
   <div className="projectCard">
