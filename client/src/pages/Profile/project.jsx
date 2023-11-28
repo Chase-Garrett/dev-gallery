@@ -58,7 +58,6 @@ export default function FormDialog() {
             margin="dense"
             id="projectRepo"
             label="Project Repository"
-            type="email"
             fullWidth
             variant="standard"
           />
@@ -67,7 +66,6 @@ export default function FormDialog() {
             margin="dense"
             id="projectScreenshot"
             label="Project Screenshot"
-            type="email"
             fullWidth
             variant="standard"
           />
