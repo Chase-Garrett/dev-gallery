@@ -45,14 +45,11 @@ export default function FormDialog() {
 
   return (
     <React.Fragment>
-      <Button variant="contained" onClick={handleClickOpen}>
-        Add Project
-      </Button>
       {loading && (<div>Loading User Projects...</div>)}
       {!loading && userData?.user?.savedProjects.length === 0 && (<div>No Saved Projects</div>)}
       {!loading && userData && !!userData?.user?.savedProjects.length && (
         userData.user?.savedProjects.map((project, index) => (
-          <Container key={index}>
+          <Container className="project-container" key={index}>
             {project.projectName}
             {project.projectDescription}
             {project.projectUrl}
@@ -60,6 +57,9 @@ export default function FormDialog() {
           </Container>
         ))
       )}
+      <Button variant="contained" onClick={handleClickOpen}>
+        Add Project
+      </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>New Project</DialogTitle>
         <DialogContent>

@@ -122,7 +122,6 @@ export const ADD_PROFILE_MUTATION = gql`
     $lastName: String!
     $email: String!
     $bio: String!
-    $profilePic: String!
     $isDev: Boolean!
   ) {
     addProfile(
