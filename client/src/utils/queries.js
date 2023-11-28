@@ -19,7 +19,6 @@ export const QUERY_USER = gql`
         projectDescription
         projectUrl
         projectRepo
-        projectScreenshot
         projectSkills {
           _id
           skillName

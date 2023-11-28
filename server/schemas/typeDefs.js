@@ -22,7 +22,6 @@ const typeDefs = `
     projectDescription: String
     projectUrl: String
     projectRepo: String
-    projectScreenshot: String
     projectSkills: [Skill]
   }
 
@@ -54,7 +53,7 @@ const typeDefs = `
     login(email: String!, password: String!): Auth
     addSkills(skillName: String!): User
     removeSkill(skillName: String!): User
-    addProject(projectName: String!, projectDescription: String!, projectUrl: String, projectRepo: String!, projectScreenshot: String, projectSkills: [ID]!): User
+    addProject(projectName: String!, projectDescription: String!, projectUrl: String, projectRepo: String!, isDev: Boolean!): User
     removeProject(projectId: ID!): User
     addProjectSkill(projectId: ID!, skillId: ID!): User
     removeProjectSkill(projectId: ID!, skillId: ID!): User
