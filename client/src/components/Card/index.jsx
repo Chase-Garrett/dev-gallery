@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import image from '../../assets/images/eclipse.webp';
 
-export function ProjectCard() {
+export function ProjectCard(user) {
     return (
         <Card sx={{ maxWidth: 345, mt: 0 }}>
           <CardMedia
@@ -16,10 +16,10 @@ export function ProjectCard() {
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              Project Name
+              {user.user.firstName + ' ' + user.user.lastName}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Project Description -- Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit consequatur unde reiciendis nisi. Fuga quia assumenda sunt a labore mollitia!
+              {user.user.email}
             </Typography>
           </CardContent>
           <CardActions>

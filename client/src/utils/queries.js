@@ -9,11 +9,11 @@ export const QUERY_USER = gql`
       email
       bio
       isDev
-      skills {
+      savedSkills {
         _id
         skillName
       }
-      projects {
+      savedProjects {
         _id
         projectName
         projectDescription
@@ -38,7 +38,7 @@ export const QUERY_ALL_USERS = gql`
       email
       bio
       isDev
-      skills {
+      savedSkills {
         _id
         skillName
       }
