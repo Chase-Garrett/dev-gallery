@@ -15,47 +15,46 @@ import Button from "@mui/material/Button";
 
 import Nav from "../../components/Nav";
 import FormDialog from "./project";
+import { ProjectCard } from "../../components/Card";
 
 import "./style.scss";
 import { Container } from "@mui/material";
 
-import { ProjectCard } from "../../components/Card";
-
-// const user = Auth.getProfile();
-// const [profileInput, setProfileInput] = useState({
-  //   firstName: "",
-  //   lastName: "",
-  //   email: "",
-  //   bio: "",
-  //   isDev: user.data.isDev,
-  // });
+export default function ProfileForm() {
+  const user = Auth.getProfile();
+  const [profileInput, setProfileInput] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    bio: "",
+    isDev: user.data.isDev,
+  });
   // const { data: userData, loading } = useQuery(QUERY_USER);
-  
-  // const [addProfile, { error }] = useMutation(ADD_PROFILE_MUTATION);
-  
-  // const handleFormSubmit = async (event) => {
-    //   event.preventDefault();
-    
-    //   if (!profileInput) {
-      //     return false;
-      //   }
-      //   const { data } = await addProfile({ variables: { ...profileInput } });
-      //   console.log(data);
-      //   handleClose();
-      // };
-      export default function ProfileForm() {
 
-  const { loading, data } = useQuery(QUERY_ALL_USERS)
+  // const [addProfile, { error }] = useMutation(ADD_PROFILE_MUTATION);
+
+  // const handleFormSubmit = async (event) => {
+  //   event.preventDefault();
+
+  //   if (!profileInput) {
+  //     return false;
+  //   }
+  //   const { data } = await addProfile({ variables: { ...profileInput } });
+  //   console.log(data);
+  //   handleClose();
+  // };
+
+  const { loading, data } = useQuery(QUERY_ALL_USERS);
   const [searchResults, setSearchResults] = useState([]);
   const [searchInput, setSearchInput] = useState("");
-  const users = data?.users || []
+  const users = data?.users || [];
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-  }
+  };
 
-  console.log(users)
-  
+  console.log(users);
+
   return (
     <>
       <Nav />
@@ -64,9 +63,14 @@ import { ProjectCard } from "../../components/Card";
         <Typography variant="h4" gutterBottom>
           Profile Infomation
         </Typography>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
-            <TextField
+        <Grid >
+          <Grid>
+            <div className="projectCard">
+              {users.map((user) => {
+                return <ProjectCard key={user._id} user={user} />;
+              })}
+            </div>
+            {/* <TextField
               value={profileInput.firstName}
               onChange={(e) =>
                 setProfileInput((prev) => ({
@@ -81,8 +85,8 @@ import { ProjectCard } from "../../components/Card";
               fullWidth
               autoComplete="given-name"
               variant="standard"
-            />
-            <TextField
+            /> */}
+            {/* <TextField
               value={profileInput.lastName}
               onChange={(e) =>
                 setProfileInput((prev) => ({
@@ -97,8 +101,8 @@ import { ProjectCard } from "../../components/Card";
               fullWidth
               autoComplete="family-name"
               variant="standard"
-            />
-            <TextField
+            /> */}
+            {/* <TextField
               value={profileInput.email}
               onChange={(e) =>
                 setProfileInput((prev) => ({
@@ -113,17 +117,17 @@ import { ProjectCard } from "../../components/Card";
               fullWidth
               autoComplete="email"
               variant="standard"
-            />
-            </Grid>
-            <Grid>
-               <TextField
-                value={profileInput.bio}
-                onChange={(e) =>
-                  setProfileInput((prev) => ({
-                    ...prev,
-                    bio: e.target.value,
-                  }))
-                }
+            /> */}
+          </Grid>
+          <Grid>
+            <TextField
+              value={profileInput.bio}
+              onChange={(e) =>
+                setProfileInput((prev) => ({
+                  ...prev,
+                  bio: e.target.value,
+                }))
+              }
               className="bio-box"
               id="bio"
               name="bio"
@@ -131,8 +135,6 @@ import { ProjectCard } from "../../components/Card";
               multiline
               rows={4}
             />
-          </Grid>
-          <Grid>
             <TextField
               className="skills-box"
               id="outlined-multiline-static"
@@ -145,19 +147,16 @@ import { ProjectCard } from "../../components/Card";
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            <Button variant="contained" className="Button" onClick={handleFormSubmit}>
+            <Button
+              variant="contained"
+              className="Button"
+              onClick={handleFormSubmit}
+            >
               Save
             </Button>
           </Grid>
         </Grid>
       </Container>
-             {/* <div className="projectCard">
-    {users.map(user => {
-      return (
-        <ProjectCard key={user._id} user = {user} />
-      )
-    })}
-  </div> */}
     </>
   );
 }
