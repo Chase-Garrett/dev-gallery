@@ -1,10 +1,11 @@
-import Dashboard from "../../components/Dashboard";
+//import Dashboard from "../../components/Dashboard";
 import { ProjectCard } from "../../components/Card";
 import { Box, TextField, Button } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { QUERY_ALL_USERS, QUERY_USER } from "../../utils/queries";
 import '../../App.scss';
+import Nav from "../../components/Nav";
 
 export default function Homepage () {
   const { loading, data } = useQuery(QUERY_ALL_USERS)
@@ -31,14 +32,13 @@ export default function Homepage () {
 
 return (
   <>
-  <div className="dashboard">
-    <Dashboard />
-  </div>
+  <Nav />
+  
   <div className="projectSearch">
   <Box
       component="form"
       sx={{
-        '& > :not(style)': { m: 1, width: '25ch' },
+        '& > :not(style)': { m: 1, width: '50ch' },
       }}
       noValidate
       autoComplete="off"
