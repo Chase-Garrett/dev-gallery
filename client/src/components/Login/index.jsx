@@ -34,18 +34,20 @@ export default function Login() {
     <Nav />
     <form id="login-form" onSubmit={logingHandler}>
       <div>
-        <label htmlFor="login-form-email">Email</label>
+        <label htmlFor="login-form-email"></label>
         <input
           id="login-form-email"
           type="text"
+          placeholder="Email"
           onChange={(evt) => setEmail(evt.target.value)}
         />
       </div>
       <div>
-        <label htmlFor="login-form-password">Password</label>
+        <label htmlFor="login-form-password"></label>
         <input
           id="login-form-password"
           type="text"
+          placeholder="Password"
           onChange={(evt) => setPassword(evt.target.value)}
         />
       </div>
@@ -56,7 +58,7 @@ export default function Login() {
       </div>
       <Grid container justifyContent="flex-end">
         <Grid item>
-          <Link href="/signup" variant="body2">
+          <Link color="inherit" href="/signup" variant="body2">
             Don't have an account? Sign Up!
           </Link>
         </Grid>
