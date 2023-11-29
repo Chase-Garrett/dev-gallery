@@ -3,7 +3,7 @@ import Auth from "../../utils/auth";
 import { useMutation, useQuery } from "@apollo/client";
 
 import { USER_PROFILE } from "../../utils/actions";
-import { QUERY_USER } from "../../utils/queries";
+import { QUERY_USER, QUERY_ALL_USERS } from "../../utils/queries";
 import { useStoreContext } from "../../utils/store-context";
 import { ADD_PROFILE_MUTATION } from "../../utils/mutations";
 
@@ -19,38 +19,43 @@ import FormDialog from "./project";
 import "./style.scss";
 import { Container } from "@mui/material";
 
-export default function ProfileForm() {
-  const user = Auth.getProfile();
-  const [profileInput, setProfileInput] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    bio: "",
-    isDev: user.data.isDev,
-  });
-  const { data: userData, loading } = useQuery(QUERY_USER);
+import { ProjectCard } from "../../components/Card";
 
-  const [addProfile, { error }] = useMutation(ADD_PROFILE_MUTATION);
+// const user = Auth.getProfile();
+// const [profileInput, setProfileInput] = useState({
+  //   firstName: "",
+  //   lastName: "",
+  //   email: "",
+  //   bio: "",
+  //   isDev: user.data.isDev,
+  // });
+  // const { data: userData, loading } = useQuery(QUERY_USER);
+  
+  // const [addProfile, { error }] = useMutation(ADD_PROFILE_MUTATION);
+  
+  // const handleFormSubmit = async (event) => {
+    //   event.preventDefault();
+    
+    //   if (!profileInput) {
+      //     return false;
+      //   }
+      //   const { data } = await addProfile({ variables: { ...profileInput } });
+      //   console.log(data);
+      //   handleClose();
+      // };
+      export default function ProfileForm() {
+
+  const { loading, data } = useQuery(QUERY_ALL_USERS)
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+  const users = data?.users || []
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+  }
 
-    if (!profileInput) {
-      return false;
-    }
-    const { data } = await addProfile({ variables: { ...profileInput } });
-    console.log(data);
-    handleClose();
-  };
-  // const [user, dispatch] = useStoreContext("user");
-  // const { data, loading } = useQuery(QUERY_USER);
-
-  // useEffect(() => {
-  //   if (data && data.user) {
-  //     dispatch({ type: USER_PROFILE, payload: data.user });
-  //   }
-  // }, [data]);
-
+  console.log(users)
+  
   return (
     <>
       <Nav />
@@ -146,6 +151,13 @@ export default function ProfileForm() {
           </Grid>
         </Grid>
       </Container>
+             {/* <div className="projectCard">
+    {users.map(user => {
+      return (
+        <ProjectCard key={user._id} user = {user} />
+      )
+    })}
+  </div> */}
     </>
   );
 }
