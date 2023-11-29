@@ -29,20 +29,6 @@ export default function ProfileForm() {
     bio: "",
     isDev: user.data.isDev,
   });
-  // const { data: userData, loading } = useQuery(QUERY_USER);
-
-  // const [addProfile, { error }] = useMutation(ADD_PROFILE_MUTATION);
-
-  // const handleFormSubmit = async (event) => {
-  //   event.preventDefault();
-
-  //   if (!profileInput) {
-  //     return false;
-  //   }
-  //   const { data } = await addProfile({ variables: { ...profileInput } });
-  //   console.log(data);
-  //   handleClose();
-  // };
 
   const { loading, data } = useQuery(QUERY_ALL_USERS);
   const [searchResults, setSearchResults] = useState([]);
@@ -70,54 +56,6 @@ export default function ProfileForm() {
                 return <ProjectCard key={user._id} user={user} />;
               })}
             </div>
-            {/* <TextField
-              value={profileInput.firstName}
-              onChange={(e) =>
-                setProfileInput((prev) => ({
-                  ...prev,
-                  firstName: e.target.value,
-                }))
-              }
-              required
-              id="firstName"
-              name="firstName"
-              label="First name"
-              fullWidth
-              autoComplete="given-name"
-              variant="standard"
-            /> */}
-            {/* <TextField
-              value={profileInput.lastName}
-              onChange={(e) =>
-                setProfileInput((prev) => ({
-                  ...prev,
-                  lastName: e.target.value,
-                }))
-              }
-              required
-              id="lastName"
-              name="lastName"
-              label="Last name"
-              fullWidth
-              autoComplete="family-name"
-              variant="standard"
-            /> */}
-            {/* <TextField
-              value={profileInput.email}
-              onChange={(e) =>
-                setProfileInput((prev) => ({
-                  ...prev,
-                  email: e.target.value,
-                }))
-              }
-              required
-              id="email"
-              name="email"
-              label="Email"
-              fullWidth
-              autoComplete="email"
-              variant="standard"
-            /> */}
           </Grid>
           <Grid>
             <TextField
