@@ -26,7 +26,6 @@ export default function ProfileForm() {
     lastName: "",
     email: "",
     bio: "",
-    password: "",
     isDev: user.data.isDev,
   });
   const { data: userData, loading } = useQuery(QUERY_USER);
@@ -110,6 +109,8 @@ export default function ProfileForm() {
               autoComplete="email"
               variant="standard"
             />
+            </Grid>
+            <Grid>
                <TextField
                 value={profileInput.bio}
                 onChange={(e) =>
@@ -124,23 +125,6 @@ export default function ProfileForm() {
               label="Bio"
               multiline
               rows={4}
-              defaultValue="Tell us about yourself..."
-            />
-              <TextField
-              value={profileInput.password}
-              onChange={(e) =>
-                setProfileInput((prev) => ({
-                  ...prev,
-                  password: e.target.value,
-                }))
-              }
-              required
-              id="password"
-              name="password"
-              label="???"
-              fullWidth
-              autoComplete="???"
-              variant="standard"
             />
           </Grid>
           <Grid>
@@ -150,7 +134,6 @@ export default function ProfileForm() {
               label="Skills"
               multiline
               rows={4}
-              defaultValue="Add your skills"
             />
             <Grid item xs={12}>
               <FormDialog />

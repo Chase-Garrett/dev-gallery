@@ -12,7 +12,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { ADD_PROJECT_MUTATION } from '../../utils/mutations';
-import { Container } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
@@ -50,10 +50,18 @@ export default function FormDialog() {
       {!loading && userData && !!userData?.user?.savedProjects.length && (
         userData.user?.savedProjects.map((project, index) => (
           <Container className="project-container" key={index}>
+            <Grid>
             {project.projectName}
+            </Grid>
+            <Grid>
             {project.projectDescription}
+            </Grid>
+            <Grid>
             {project.projectUrl}
+            </Grid>
+            <Grid>
             {project.projectRepo}
+            </Grid>
           </Container>
         ))
       )}
