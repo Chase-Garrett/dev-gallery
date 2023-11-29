@@ -1,49 +1,82 @@
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 
-import { THEME_TOGGLE } from "../../utils/actions";
-import { useStoreContext } from "../../utils/store-context";
+
+//import { useStoreContext } from "../../utils/store-context";
 import Auth from "../../utils/auth";
-
-import logo from '../../assets/images/logo.png';
-import darkToggle from '../../assets/images/dark-toggle.svg';
-
-import './style.scss';
+import {
+  StyledNav,
+  LeftContainer,
+  RightContainer,
+  NavbarInnerContainer,
+  NavbarExtendedContainer,
+  NavbarLinkContainer,
+  NavbarLink,
+  OpenLinksButton,
+  NavbarLinkExtended
+} from "./nav.style";
 
 export default function Nav() {
-  const [theme, dispatch] = useStoreContext('theme');
+  const [extendNavbar, setExtendedNavbar] = useState(false);
+
 
   return (
-    <header className={`header-theme__${theme.dark ? 'dark' : 'light'}`}>
-      <div>
-        <img className="header-logo" src={logo} alt="Logo" />
-      </div>
+    <StyledNav extendNavbar={extendNavbar}>
 
-      <div>
-        <nav>
+      <NavbarInnerContainer>
+        <LeftContainer>
+          <NavbarLinkContainer>
+            {Auth.loggedIn() && (
+              <>
+                <NavbarLink key={1} to="/" className={location.pathname === '/' ? 'active' : ''}>Home</NavbarLink>
+                <NavbarLink key={2} to="/profile" className={location.pathname === '/profile' ? 'active' : ''}>Profile</NavbarLink>
+                <div className="logout-link" onClick={() => Auth.logout()}>Logout</div>
+              </>
+            )}
+            {
+              !Auth.loggedIn() && (
+                <>
+                  <NavbarLink to="/">Home</NavbarLink>
+                  <NavbarLink to="/login">Login</NavbarLink>
+                  <NavbarLink to="/signup">Sign Up</NavbarLink>
+                </>
+              )
+            }
+            <OpenLinksButton
+              onClick={() => {
+                setExtendedNavbar((curr) => !curr);
+              }}
+            >
+              {extendNavbar ? <>&#10005;</> : <>&#8801;</>}
+
+            </OpenLinksButton>
+          </NavbarLinkContainer>
+        </LeftContainer>
+        <RightContainer>
+          <div>
+            <p className="title">DevGallery</p>
+          </div>
+        </RightContainer>
+      </NavbarInnerContainer>
+      {extendNavbar && (
+        <NavbarExtendedContainer>
           {Auth.loggedIn() && (
             <>
-              <Link key={1} to="/" className={location.pathname === '/' ? 'active' : ''}>Home</Link>
-              <Link key={2} to="/profile" className={location.pathname === '/profile' ? 'active' : ''}>Profile</Link>
-              <div className="logout-link" onClick={() => Auth.logout()}>Logout</div>
+              <NavbarLinkExtended to="/" className={location.pathname === '/' ? 'active' : ''}>Home</NavbarLinkExtended>
+              <NavbarLinkExtended to="/profile" className={location.pathname === '/profile' ? 'active' : ''}>Profile</NavbarLinkExtended>
+              <NavbarLinkExtended to="/login" className="logout-link" onClick={() => Auth.logout()}>Logout</NavbarLinkExtended>
             </>
           )}
           {
             !Auth.loggedIn() && (
               <>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
+                <NavbarLinkExtended to="/">Home</NavbarLinkExtended>
+                <NavbarLinkExtended to="/login">Login</NavbarLinkExtended>
+                <NavbarLinkExtended to="/signup">Sign Up</NavbarLinkExtended>
               </>
             )
           }
-        </nav>
-
-        <img
-          onClick={() => dispatch({ type: THEME_TOGGLE })}
-          className="header-theme-toggle"
-          src={darkToggle}
-          alt="Theme Toggle"
-        />
-      </div>
-    </header>
+        </NavbarExtendedContainer>
+      )}
+    </StyledNav>
   );
 }
