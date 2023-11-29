@@ -1,4 +1,3 @@
-
   # Dev Gallery
 
   ![License](https://img.shields.io/badge/license-MIT-brightgreen)
@@ -38,6 +37,6 @@
 
   Github usernames are: bcm22, Chase-Garrett, dan-watkink, livschif.
 
-  If you have any questions about this project, please contact us at bcmonda22@gmail.com.
+  If you have any questions about this project, please contact us at bcmonda22@gmail.com, oliviaschif@gmail.com, danielwatkins@byu.net
   
   
