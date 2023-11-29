@@ -3,7 +3,7 @@ import Auth from "../../utils/auth";
 import { useMutation, useQuery } from "@apollo/client";
 
 import { USER_PROFILE } from "../../utils/actions";
-import { QUERY_USER } from "../../utils/queries";
+import { QUERY_USER, QUERY_ALL_USERS } from "../../utils/queries";
 import { useStoreContext } from "../../utils/store-context";
 import { ADD_PROFILE_MUTATION } from "../../utils/mutations";
 
@@ -15,6 +15,7 @@ import Button from "@mui/material/Button";
 
 import Nav from "../../components/Nav";
 import FormDialog from "./project";
+import { ProjectCard } from "../../components/Card";
 
 import "./style.scss";
 import { Container } from "@mui/material";
@@ -28,28 +29,17 @@ export default function ProfileForm() {
     bio: "",
     isDev: user.data.isDev,
   });
-  const { data: userData, loading } = useQuery(QUERY_USER);
 
-  const [addProfile, { error }] = useMutation(ADD_PROFILE_MUTATION);
+  const { loading, data } = useQuery(QUERY_ALL_USERS);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+  const users = data?.users || [];
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
-    if (!profileInput) {
-      return false;
-    }
-    const { data } = await addProfile({ variables: { ...profileInput } });
-    console.log(data);
-    handleClose();
   };
-  // const [user, dispatch] = useStoreContext("user");
-  // const { data, loading } = useQuery(QUERY_USER);
 
-  // useEffect(() => {
-  //   if (data && data.user) {
-  //     dispatch({ type: USER_PROFILE, payload: data.user });
-  //   }
-  // }, [data]);
+  console.log(users);
 
   return (
     <>
@@ -59,66 +49,23 @@ export default function ProfileForm() {
         <Typography variant="h4" gutterBottom>
           Profile Infomation
         </Typography>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
+        <Grid >
+          <Grid>
+            <div className="projectCard">
+              {users.map((user) => {
+                return <ProjectCard key={user._id} user={user} />;
+              })}
+            </div>
+          </Grid>
+          <Grid>
             <TextField
-              value={profileInput.firstName}
+              value={profileInput.bio}
               onChange={(e) =>
                 setProfileInput((prev) => ({
                   ...prev,
-                  firstName: e.target.value,
+                  bio: e.target.value,
                 }))
               }
-              required
-              id="firstName"
-              name="firstName"
-              label="First name"
-              fullWidth
-              autoComplete="given-name"
-              variant="standard"
-            />
-            <TextField
-              value={profileInput.lastName}
-              onChange={(e) =>
-                setProfileInput((prev) => ({
-                  ...prev,
-                  lastName: e.target.value,
-                }))
-              }
-              required
-              id="lastName"
-              name="lastName"
-              label="Last name"
-              fullWidth
-              autoComplete="family-name"
-              variant="standard"
-            />
-            <TextField
-              value={profileInput.email}
-              onChange={(e) =>
-                setProfileInput((prev) => ({
-                  ...prev,
-                  email: e.target.value,
-                }))
-              }
-              required
-              id="email"
-              name="email"
-              label="Email"
-              fullWidth
-              autoComplete="email"
-              variant="standard"
-            />
-            </Grid>
-            <Grid>
-               <TextField
-                value={profileInput.bio}
-                onChange={(e) =>
-                  setProfileInput((prev) => ({
-                    ...prev,
-                    bio: e.target.value,
-                  }))
-                }
               className="bio-box"
               id="bio"
               name="bio"
@@ -126,8 +73,6 @@ export default function ProfileForm() {
               multiline
               rows={4}
             />
-          </Grid>
-          <Grid>
             <TextField
               className="skills-box"
               id="outlined-multiline-static"
@@ -140,7 +85,11 @@ export default function ProfileForm() {
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            <Button variant="contained" className="Button" onClick={handleFormSubmit}>
+            <Button
+              variant="contained"
+              className="Button"
+              onClick={handleFormSubmit}
+            >
               Save
             </Button>
           </Grid>
