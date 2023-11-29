@@ -47,11 +47,13 @@ return (
       <TextField id="standard-basic" label="Last Name" variant="standard" value={searchInput.lastName} onChange={(e) => setSearchInput((prev) => ({...prev, lastName: e.target.value}))}/>
       <Button variant='contained' sx={{width: 5}} onClick={handleFormSubmit}>Search</Button>
     </Box>
+    <div className="projectCard">
     {users.map(user => {
       return (
         <ProjectCard key={user._id} user = {user} />
       )
     })}
+  </div>
   </div>
   </>
 )
