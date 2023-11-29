@@ -8,16 +8,26 @@ import '../../App.scss';
 
 export default function Homepage () {
   const { loading, data } = useQuery(QUERY_ALL_USERS)
-  const [searchResults, setSearchResults] = useState([]);
-  const [searchInput, setSearchInput] = useState("");
+
+  const [searchInput, setSearchInput] = useState({
+    firstName: "",
+    lastName: "",
+  });
+
+  const { data: userData, waiting } = useQuery(QUERY_USER, {
+    variables: { firstName: searchInput.firstName, lastName: searchInput.lastName}
+  })
   const users = data?.users || []
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
+    if (!searchInput) {
+      return false;
+    }
+    const response = await userData;
+    console.log(response);
   }
-
-  console.log(users)
-
 
 return (
   <>
@@ -33,11 +43,10 @@ return (
       noValidate
       autoComplete="off"
     >
-      <TextField id="standard-basic" label="Developers" variant="standard" />
+      <TextField id="standard-basic" label="First Name" variant="standard" value={searchInput.firstName} onChange={(e) => setSearchInput((prev) => ({...prev, firstName: e.target.value}))}/>
+      <TextField id="standard-basic" label="Last Name" variant="standard" value={searchInput.lastName} onChange={(e) => setSearchInput((prev) => ({...prev, lastName: e.target.value}))}/>
       <Button variant='contained' sx={{width: 5}} onClick={handleFormSubmit}>Search</Button>
     </Box>
-  </div>
-  <div className="projectCard">
     {users.map(user => {
       return (
         <ProjectCard key={user._id} user = {user} />
