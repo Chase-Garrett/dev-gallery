@@ -10,7 +10,7 @@ import {
 import { StoreProvider } from "./utils/store-context";
 import Auth from "./utils/auth";
 
-import "./app.scss";
+
 
 const httpLink = createHttpLink({ uri: "/graphql" });
 
