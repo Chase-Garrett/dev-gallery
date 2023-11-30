@@ -20,7 +20,7 @@
   
   ## Installation
   
-  To view this project click here:.
+  To view this project click here: https://shielded-stream-01088-0b5fd6e316a9.herokuapp.com/.
 
   ## License
  
