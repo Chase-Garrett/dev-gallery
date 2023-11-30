@@ -37,6 +37,6 @@
 
   Github usernames are: bcm22, Chase-Garrett, dan-watkink, livschif.
 
-  If you have any questions about this project, please contact us at bcmonda22@gmail.com, oliviaschif@gmail.com, danielwatkins@byu.net
+  If you have any questions about this project, please contact us at bcmonda22@gmail.com, oliviaschif@gmail.com, danielwatkins@byu.net, chasegarrett@tutanota.com
   
   
